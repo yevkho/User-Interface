@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+
+        <!-- 1-HEADER -->
+        <div class="header">
+            <img src="./icons/todo.svg" alt="">
+            <p>hwat<span>ToDo</span></p>
+        </div>
+
+        <!-- 2-SIDEBAR -->
+        <div class="sidebar">
+
+            <div class="dash" id="homeButton">
+                <img src="./icons/home.svg" alt="">
+                <div>Home</div>
+            </div>
+            <div class="dash" id="todayButton">
+                <img src="./icons/calendard.svg" alt="">
+                <div>Today</div>
+            </div>
+            <div class="dash" id="thisWeekButton">
+                <img src="./icons/calendarw.svg" alt="">
+                <div>This Week</div>
+            </div>
+            <div class="dash">
+                <img src="./icons/label.svg" alt="">
+                <div>Projects</div>
+            </div>
+
+            <div class="projectCards"></div>
+
+            <dialog id="projectDialog">
+                <form method="dialog" id="projectForm">
+                    <div class="sectionProject">
+                        <input type="text" id="titleProject" name="titleProject" required>
+                    </div>
+                    <div class="projectFormButtons">
+                        <button id="addButtonProject">Add</button>
+                        <button id="closeButtonProject">Close</button>
+                    </div>
+                </form>
+            </dialog>
+        </div>
+
+        <!-- 3-MAIN -->
+        <div class="main"></div>
+        </div>
+
+        <dialog id="todoDialog">
+            <form method="dialog" id="todoForm">
+
+                <div class="section">
+                    <label for="title">Title:</label>
+                    <input type="text" id="title" name="title" required>
+                </div>
+
+                <div class="section" id="description">
+                    <div>Description:</div>
+                    <textarea rows="4" cols="40" id="descriptionText"></textarea>
+                </div>
+
+                <div class="section">
+                    <label for="duedate">Due date:</label>
+                    <input type="date" id="duedate" name="duedate" required>
+                </div>
+
+                <div class="section" id="radioButtons">
+                    <p>Priority:</p>
+                    <div>
+                      <input type="radio" id="low" name="priority" value="low" checked>
+                      <label for="low">low</label>
+                    </div>
+                    <div>
+                      <input type="radio" id="medium" name="priority" value="medium">
+                      <label for="medium">medium</label>
+                    </div>
+                    <div>
+                      <input type="radio" id="high" name="priority" value="high">
+                      <label for="high">high</label>
+                    </div>
+                </div>
+                
+                <div class="todoFormButtons">
+                    <button id="addButton">Add</button>
+                    <button type="reset">Reset</button>
+                    <button id="closeButton">Close</button>
+                </div>
+            </form>
+        </dialog>
+        
+    </div>
+</body>
+</html>
