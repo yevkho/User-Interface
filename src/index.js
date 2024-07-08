@@ -1,43 +1,66 @@
-import createMyProjectsBase from "./projectsbase.js";
-import renderWebPage from "./renderWebPage.js";
-import { renderTodayThisWeekPage } from "./renderWebPage.js";
+//drop down menu
+import dropdownMenu from "./dropdownMenu";
 import "./styles.css";
 
-//(1) Set up MyProjects object
-let myProjectsBase;
+const hmaBurgerButton = document.querySelector(".hamb");
+const menuItems = document.querySelector(".menuItems");
+dropdownMenu(hmaBurgerButton, menuItems);
 
-//check for local storage
-if (localStorage.getItem("myProjectsBase")) {
-  //pulling myProjectsBase from storage
-  let returnObject = JSON.parse(localStorage.getItem("myProjectsBase"));
-  //use stored object to generate myProjectsBase
-  myProjectsBase = createMyProjectsBase(returnObject);
-} else {
-  //set up myProjects object for the first time
-  myProjectsBase = createMyProjectsBase();
-  //stringify and push to storage
-  localStorage.setItem("myProjectsBase", JSON.stringify(myProjectsBase));
-}
+//carousel.js
+const slidesContainer = document.querySelector(".slidesContainer");
+const allSlidesArray = document.querySelectorAll(".slide");
+const buttonRight = document.querySelector(".right");
+const buttonLeft = document.querySelector(".left");
+const navigationPannel = document.querySelector(".navigation");
+const allPlacementIndicatorsArray = document.querySelectorAll(
+  ".placementIndicator",
+);
 
-//(2) render HOME page at launch
-renderWebPage(myProjectsBase, 0);
+let slideIndex = 0;
 
-//(3)configure HOME button
-const homButton = document.querySelector("#homeButton");
-homButton.addEventListener("click", () => {
-  renderWebPage(myProjectsBase, 0);
+const moveRight = function () {
+  slideIndex++;
+  if (slideIndex >= allSlidesArray.length) {
+    slideIndex = 0;
+  }
+  slidesContainer.style.transform = `translateX(${-slideIndex * 400}px)`;
+};
+
+const moveLeft = function () {
+  slideIndex--;
+  if (slideIndex < 0) {
+    slideIndex = allSlidesArray.length - 1;
+  }
+  slidesContainer.style.transform = `translateX(${-slideIndex * 400}px)`;
+};
+
+const setPlacementIndicator = function () {
+  allPlacementIndicatorsArray.forEach(function (item) {
+    item.classList.remove("current");
+  });
+  allPlacementIndicatorsArray[slideIndex].classList.add("current");
+};
+
+buttonRight.addEventListener("click", () => {
+  moveRight();
+  setPlacementIndicator();
 });
 
-//(3)configure TODAY button
-const todayButton = document.querySelector("#todayButton");
-todayButton.addEventListener("click", () => {
-  myProjectsBase.compileTodayAndThisWeek();
-  renderTodayThisWeekPage(myProjectsBase, 1);
+buttonLeft.addEventListener("click", () => {
+  moveLeft();
+  setPlacementIndicator();
 });
 
-//(4)configure THIS-WEEK button
-const thisWeekButton = document.querySelector("#thisWeekButton");
-thisWeekButton.addEventListener("click", () => {
-  myProjectsBase.compileTodayAndThisWeek();
-  renderTodayThisWeekPage(myProjectsBase, 2);
+navigationPannel.addEventListener("click", (e) => {
+  if (e.target === navigationPannel) {
+    return;
+  }
+  slideIndex = [...allPlacementIndicatorsArray].indexOf(e.target);
+  setPlacementIndicator();
+  slidesContainer.style.transform = `translateX(${-slideIndex * 400}px)`;
 });
+
+setInterval(function () {
+  moveRight();
+  setPlacementIndicator();
+}, 5000);
